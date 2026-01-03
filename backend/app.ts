@@ -5,8 +5,8 @@ dotenv.config({ path: process.env.NODE_ENV === "development" ? ".env.development
 import express, { Express, Request, Response } from "express";
 import cors from "cors";
 import cookieParser from "cookie-parser";
-import userRouter from "./routes/userRoutes"
-
+import userRouter from "./routes/userRoutes";
+import gameRouter from "./routes/gameRoutes";
 
 const app: Express = express();
 const port = process.env.PORT || 3000;
@@ -33,7 +33,8 @@ app.use(express.urlencoded({ extended: true }));
 app.get("/api/health", (req: Request, res: Response) => {
     res.status(200).send("API is running...");
 });
-app.use("/api/v1/auth", userRouter);
+app.use( "/api/v1/auth", userRouter );
+app.use( "/api/v1", gameRouter );
 
 // Start server
 app.listen(port, () => {
